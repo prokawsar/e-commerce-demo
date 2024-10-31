@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_PRODUCTS = gql`
-  query {
+  query GetAllProducts {
     products {
       id
       title
@@ -56,6 +56,16 @@ export const GET_PRODUCTS_BY_PRICE_RANGE = gql`
     products(price_min: $min, price_max: $max) {
       title
       price
+    }
+  }
+`;
+
+export const GET_ALL_CATEGORY = gql`
+  query {
+    categories {
+      id
+      name
+      image
     }
   }
 `;

@@ -2,12 +2,10 @@ import { useQuery } from "@apollo/client";
 import { GET_ALL_PRODUCTS } from "./graphql/queries";
 import Banner from "./assets/banner.png";
 import { ProductCard } from "./components/ProductCard";
+import { FilterByCategory } from "./components/FilterByCategory";
 
 function App() {
-  const { loading, error, data } = useQuery(GET_ALL_PRODUCTS, {
-    variables: { id: 1 },
-  });
-  console.log(data);
+  const { loading, error, data: products } = useQuery(GET_ALL_PRODUCTS);
 
   return (
     <>
@@ -15,15 +13,16 @@ function App() {
         <div className="w-full bg-[#6258AA] justify-center flex max-h-80">
           <img src={Banner} alt="" className="object-cover" />
         </div>
-        <div className="flex flex-col max-w-7xl max-auto items-center">
+        <div className="flex flex-col gap-4 max-w-7xl max-auto items-center">
           {loading ? (
             "Loading..."
           ) : (
             <>
-              <p>Total {data?.products?.length} Products</p>
+              <p>Total {products.products?.length} Products</p>
+              <FilterByCategory />
 
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-4">
-                {data.products?.map((product, index) => {
+                {products.products?.map((product, index) => {
                   return <ProductCard key={index} product={product} />;
                 })}
               </div>
