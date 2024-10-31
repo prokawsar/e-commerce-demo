@@ -25,18 +25,28 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 `;
-export const GET_PRODUCT_BY_FILTER = gql`
+
+export const GET_PRODUCTS_BY_PRICE = gql`
   query {
-    products(title: "Generic") {
+    products(price: 100) {
       title
       price
     }
   }
 `;
 
-export const GET_PRODUCT_BY_CATEGORY = gql`
-  query {
-    products(categoryId: 1) {
+export const GET_PRODUCTS_BY_CATEGORY = gql`
+  query Product($id: Float!) {
+    products(categoryId: $id) {
+      title
+      price
+    }
+  }
+`;
+
+export const GET_PRODUCTS_BY_PRICE_RANGE = gql`
+  query Products($min: Int!, $max: Int!) {
+    products(price_min: $min, price_max: $max) {
       title
       price
     }

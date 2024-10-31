@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
 import reactLogo from "./assets/react.svg";
-import { GET_PRODUCT_BY_CATEGORY } from "./graphql/queries";
+import { GET_PRODUCTS_BY_CATEGORY } from "./graphql/queries";
 
 function App() {
-  const { loading, error, data } = useQuery(GET_PRODUCT_BY_CATEGORY, {
+  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
     variables: { id: 1 },
   });
   console.log(data);
