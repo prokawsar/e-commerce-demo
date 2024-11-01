@@ -19,6 +19,31 @@ function App() {
           ) : (
             <>
               <p>Total {products.products?.length} Products</p>
+              <div className="flex flex-row w-full gap-4">
+                <div className="flex flex-row items-center px-3 gap-3">
+                  <label>Sort by</label>
+                  <select className="px-2 border rounded py-1">
+                    <option>Select</option>
+                    <option>By price</option>
+                  </select>
+                </div>
+                <div className="flex flex-row items-center px-3 gap-3">
+                  <label>Price range</label>
+                  <input
+                    type="number"
+                    placeholder="min"
+                    className="w-14 border p-1 rounded"
+                  ></input>
+                  <input
+                    type="number"
+                    placeholder="max"
+                    className="w-14 border p-1 rounded"
+                  ></input>
+                </div>
+                <button className="bg-orange-300 rounded-full px-4 hover:bg-orange-400 text-sm">
+                  Apply
+                </button>
+              </div>
               <FilterByCategory />
 
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-4">
