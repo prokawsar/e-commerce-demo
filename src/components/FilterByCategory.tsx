@@ -12,13 +12,15 @@ export const FilterByCategory = () => {
       <button className="px-2 py-1 bg-gray-100 rounded-xl">
         <p className="whitespace-nowrap text-gray-500">All</p>
       </button>
-      {categories?.categories?.map((category, index) => {
-        return (
-          <button key={index} className="px-2 py-1 bg-gray-100 rounded-xl">
-            <p className="whitespace-nowrap text-gray-500">{category.name}</p>
-          </button>
-        );
-      })}
+      {categories?.categories?.map(
+        (category: { name: string }, index: number) => {
+          return (
+            <button key={index} className="px-2 py-1 bg-gray-100 rounded-xl">
+              <p className="whitespace-nowrap text-gray-500">{category.name}</p>
+            </button>
+          );
+        }
+      )}
     </div>
   );
 };

@@ -1,8 +1,11 @@
 import { Icon } from "@iconify/react";
 import { flattenUrls } from "../utils/tools";
+import { Product } from "../graphql/types";
 
-export const ProductCard = ({ product }) => {
-  const handleAddtoCart = (product) => {};
+export const ProductCard = ({ product }: { product: Product }) => {
+  const handleAddtoCart = (product: Product) => {
+    console.log(product);
+  };
 
   return (
     <>

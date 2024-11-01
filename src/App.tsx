@@ -4,9 +4,10 @@ import Banner from "./assets/banner.png";
 import { ProductCard } from "./components/ProductCard";
 import { FilterByCategory } from "./components/FilterByCategory";
 import { useState } from "react";
+import { Product } from "./graphql/types";
 
 function App() {
-  const { loading, error, data: products } = useQuery(GET_ALL_PRODUCTS);
+  const { loading, data: products } = useQuery(GET_ALL_PRODUCTS);
   const [showAll, setShowAll] = useState(false);
 
   const handleLoadMore = () => {
@@ -58,7 +59,7 @@ function App() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-4">
                 {products.products
                   ?.slice(0, showAll ? products.products.length : 9)
-                  .map((product, index) => {
+                  .map((product: Product, index: number) => {
                     return <ProductCard key={index} product={product} />;
                   })}
               </div>

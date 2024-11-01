@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
+// import { useState, useEffect } from "react";
+// import { toast } from "sonner";
 import { Icon } from "@iconify/react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   setShowCart: Function;
 };
 
-export default function Cart({ showCart, data, setShowCart }: Props) {
+export default function Cart({ showCart, setShowCart }: Props) {
   return (
     showCart && (
       <div
