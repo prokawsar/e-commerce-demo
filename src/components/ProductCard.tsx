@@ -17,7 +17,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         <p className="font-bold mt-2">{product.title}</p>
         <p className="text-gray-600 capitalize">{product.category.name}</p>
         <div className="flex flex-row items-center justify-between w-full">
-          <p className="text-orange-500">${product.price}</p>
+          <p className="text-yellow-500">${product.price}</p>
           <button
             onClick={(e) => {
               e.preventDefault();

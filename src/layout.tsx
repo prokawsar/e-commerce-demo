@@ -16,12 +16,14 @@ export function Layout() {
           </Link>
           <div className="w-full flex justify-end gap-3 text-gray-500">
             <button
-              className="hover:text-black"
+              className="hover:text-black rounded-full border border-yellow-500 p-2"
               onClick={() => setShowCart(!showCart)}
             >
               <Icon icon="mdi:cart" className="" width="20px" />
             </button>
-            <Icon icon="mdi:account" className="" width="20px" />
+            <button className="rounded-full border border-yellow-500 p-2">
+              <Icon icon="mdi:account" className="" width="20px" />
+            </button>
           </div>
         </nav>
         {/* {children} */}

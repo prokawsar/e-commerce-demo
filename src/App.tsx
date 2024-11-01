@@ -50,7 +50,7 @@ function App() {
                   </div>
                 </div>
 
-                <button className="bg-orange-200 rounded-full px-4 py-1 hover:bg-orange-300 text-sm">
+                <button className="bg-yellow-400 rounded-full px-4 py-1 hover:bg-yellow-500 text-sm">
                   Apply
                 </button>
               </div>
@@ -66,7 +66,7 @@ function App() {
               {!showAll && (
                 <button
                   onClick={handleLoadMore}
-                  className="my-4 bg-orange-200 py-2 px-4 rounded-md hover:bg-orange-300"
+                  className="my-4 bg-yellow-400 py-2 px-4 rounded-full hover:bg-yellow-500"
                 >
                   Load More
                 </button>

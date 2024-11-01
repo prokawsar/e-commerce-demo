@@ -34,7 +34,7 @@ export default function Cart({ showCart, setShowCart }: Props) {
 
           <div className="flex flex-col justify-between h-full">
             <div className="flex flex-col gap-3">{/* Items */}</div>
-            <button className="bg-orange-200 hover:bg-orange-300 rounded-md py-1">
+            <button className="bg-yellow-400 hover:bg-yellow-500 rounded-md py-1">
               Checkout
             </button>
           </div>

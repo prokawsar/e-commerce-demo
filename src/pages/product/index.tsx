@@ -87,7 +87,7 @@ export const ProductDetails = () => {
           </button>
         </div>
 
-        <button className="mt-6 w-full bg-orange-200  py-2 rounded-md hover:bg-orange-300">
+        <button className="mt-6 w-full bg-yellow-400  py-2 rounded-md hover:bg-yellow-500">
           Add to Cart
         </button>
       </div>
