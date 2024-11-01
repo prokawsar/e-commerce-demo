@@ -3,9 +3,15 @@ import { GET_ALL_PRODUCTS } from "./graphql/queries";
 import Banner from "./assets/banner.png";
 import { ProductCard } from "./components/ProductCard";
 import { FilterByCategory } from "./components/FilterByCategory";
+import { useState } from "react";
 
 function App() {
   const { loading, error, data: products } = useQuery(GET_ALL_PRODUCTS);
+  const [showAll, setShowAll] = useState(false);
+
+  const handleLoadMore = () => {
+    setShowAll(true);
+  };
 
   return (
     <>
@@ -50,10 +56,20 @@ function App() {
               <FilterByCategory />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-4">
-                {products.products?.map((product, index) => {
-                  return <ProductCard key={index} product={product} />;
-                })}
+                {products.products
+                  ?.slice(0, showAll ? products.products.length : 9)
+                  .map((product, index) => {
+                    return <ProductCard key={index} product={product} />;
+                  })}
               </div>
+              {!showAll && (
+                <button
+                  onClick={handleLoadMore}
+                  className="my-4 bg-orange-200 py-2 px-4 rounded-md hover:bg-orange-300"
+                >
+                  Load More
+                </button>
+              )}
             </>
           )}
         </div>

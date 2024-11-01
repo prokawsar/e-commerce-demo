@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCT_BY_ID } from "../../graphql/queries";
 import { Icon } from "@iconify/react";
+import { flattenUrls } from "../../utils/tools";
 
 export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -51,7 +52,7 @@ export const ProductDetails = () => {
           </>
         )}
         <img
-          src={product.images[currentImageIndex]}
+          src={flattenUrls(product.images)[currentImageIndex]}
           alt={product.title}
           className="mb-4 w-full h-auto rounded-lg"
         />
