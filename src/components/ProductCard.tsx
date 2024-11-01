@@ -9,7 +9,7 @@ export const ProductCard = ({ product }) => {
       <a href={`/product/${product.id}`} className="flex flex-col p-2">
         <img
           src={flattenUrls(product.images)[0]}
-          className="bg-gray-50 rounded-lg  h-64 object-cover object-center"
+          className="bg-gray-50 rounded-lg  h-64 object-cover object-center hover:scale-105"
         />
         <p className="font-bold mt-2">{product.title}</p>
         <p className="text-gray-600 capitalize">{product.category.name}</p>
