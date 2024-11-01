@@ -22,6 +22,13 @@ export const GET_PRODUCT_BY_ID = gql`
     product(id: $id) {
       title
       price
+      description
+      images
+      category {
+        id
+        name
+        image
+      }
     }
   }
 `;

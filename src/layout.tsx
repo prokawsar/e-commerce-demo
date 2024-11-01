@@ -9,7 +9,10 @@ export function Layout() {
   return (
     <main className="h-[100svh] flex flex-col justify-between">
       <div className="flex flex-col items-center">
-        <nav className="max-w-7xl mx-auto w-full gap-2 flex items-center h-10">
+        <nav className="max-w-7xl px-4 lg:px-0 mx-auto w-full gap-2 flex items-center h-10">
+          <Link to="/">
+            <Icon icon="noto:shopping-bags" width="30px" />
+          </Link>
           <div className="w-full flex justify-end gap-3 text-gray-500">
             <button
               className="hover:text-black"

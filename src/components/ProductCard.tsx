@@ -6,7 +6,7 @@ export const ProductCard = ({ product }) => {
 
   return (
     <>
-      <a href="/" className="flex flex-col p-2">
+      <a href={`/product/${product.id}`} className="flex flex-col p-2">
         <img
           src={flattenUrls(product.images)[0]}
           className="bg-gray-50 rounded-lg  h-64 object-cover object-center"
