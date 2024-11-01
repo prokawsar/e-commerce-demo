@@ -22,7 +22,7 @@ export const ProductCard = ({ product }) => {
             }}
             className="hover:scale-110 hover:!text-black text-gray-500 bg-gray-100 rounded-full items-center justify-center flex h-8 w-8"
           >
-            <Icon icon="mdi:cart" className="" />
+            <Icon icon="fa-solid:cart-plus" className="" />
           </button>
         </div>
       </a>

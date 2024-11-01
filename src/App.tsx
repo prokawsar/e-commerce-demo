@@ -40,7 +40,7 @@ function App() {
                     className="w-14 border p-1 rounded"
                   ></input>
                 </div>
-                <button className="bg-orange-300 rounded-full px-4 hover:bg-orange-400 text-sm">
+                <button className="bg-orange-200 rounded-full px-4 hover:bg-orange-300 text-sm">
                   Apply
                 </button>
               </div>
