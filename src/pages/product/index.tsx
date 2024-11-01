@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { GET_PRODUCT_BY_ID } from "../../graphql/queries";
 import { Icon } from "@iconify/react";
 import { flattenUrls } from "../../utils/tools";
@@ -9,11 +9,11 @@ export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const { loading, error, data } = useQuery(GET_PRODUCT_BY_ID, {
+  const { error, data } = useSuspenseQuery(GET_PRODUCT_BY_ID, {
     variables: { id },
   });
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const product = data.product;

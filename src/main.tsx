@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import "./index.css";
 import App from "./App.tsx";
 import { ApolloProvider } from "@apollo/client";
@@ -25,7 +25,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:id",
-        element: <ProductDetails />,
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <ProductDetails />,
+          </Suspense>
+        ),
       },
     ],
   },
