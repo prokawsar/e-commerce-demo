@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { User, useAuthModalStore, useUserStore } from "../store";
 import Modal from "@/components/Modal";
 import { useMutation } from "@apollo/client";
@@ -6,7 +6,6 @@ import { LOGIN } from "@/graphql/queries";
 
 export const AuthModal = () => {
   const [signUpForm, setSignupForm] = useState(false);
-
   const { isOpen, pendingAction, closeModal } = useAuthModalStore();
   const { setUser } = useUserStore();
   const [login] = useMutation(LOGIN);
@@ -42,10 +41,14 @@ export const AuthModal = () => {
     closeModal();
   };
 
+  useEffect(() => {
+    return setSignupForm(false);
+  }, [isOpen]);
+
   if (!isOpen) return;
 
   return (
-    <Modal onClickBackdrop={() => {}}>
+    <Modal onClose={() => closeModal()}>
       <form
         onSubmit={handleFormAction}
         className="space-y-4 flex items-center flex-col w-full py-5 px-2"

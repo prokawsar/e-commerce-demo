@@ -3,16 +3,21 @@ import { useEffect, useRef, useCallback } from "react";
 
 interface ModalProps {
   children: React.ReactNode;
-  onClickBackdrop: () => void;
+  onClickBackdrop?: () => void;
+  onClose?: () => void;
 }
 
-export default function Modal({ children, onClickBackdrop }: ModalProps) {
+export default function Modal({
+  children,
+  onClickBackdrop,
+  onClose,
+}: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const backDropHandler = useCallback(
     (e: MouseEvent) => {
       if (!modalRef?.current?.contains(e.target as Node)) {
-        onClickBackdrop();
+        return onClickBackdrop ? onClickBackdrop() : null;
       }
     },
     [onClickBackdrop]
@@ -34,10 +39,11 @@ export default function Modal({ children, onClickBackdrop }: ModalProps) {
         ref={modalRef}
       >
         <button
-          className="absolute top-0 right-0 p-[3px] rounded-full w-fit z-10"
-          onClick={() => onClickBackdrop()}
+          onClick={() => (onClose ? onClose() : "")}
+          type="button"
+          className={`absolute top-1 right-1 p-1 items-center justify-center rounded-full bg-slate-200 hover:bg-slate-400 hover:text-white`}
         >
-          <Icon icon="majesticons:multiply" width="20px" />
+          <Icon icon="mdi:multiply" />
         </button>
 
         {children}
