@@ -6,6 +6,8 @@ import { Icon } from "@iconify/react";
 import { flattenUrls } from "@/utils/tools";
 import { useCartStore } from "@/store/index";
 import { GetProductByIdResponse, Product } from "@/graphql/types";
+import Image from "@/components/Image";
+import { toast } from "sonner";
 
 export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,6 +49,7 @@ export const ProductDetails = () => {
   const handleAddToCart = () => {
     product.quantity = quantity;
     addItem(product);
+    toast.info("Item added into cart");
   };
 
   return (
@@ -55,16 +58,17 @@ export const ProductDetails = () => {
         {product.images.length > 1 && (
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 rounded-full p-2 hover:bg-gray-400"
+            className="absolute z-10 left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 rounded-full p-2 hover:bg-gray-400"
           >
             <Icon icon="mdi:chevron-left" />
           </button>
         )}
-        <img
+        <Image
           src={flattenUrls(product.images)[currentImageIndex]}
           alt={product.title}
-          className="mb-4 w-full h-auto rounded-lg"
+          styles={"mb-4 w-full h-auto rounded-lg hover:!scale-100"}
         />
+
         {product.images.length > 1 && (
           <button
             onClick={handleNext}

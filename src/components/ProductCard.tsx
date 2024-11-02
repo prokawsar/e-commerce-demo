@@ -4,22 +4,20 @@ import { Product } from "@/graphql/types";
 import { Link } from "react-router-dom";
 import { useCartStore } from "@/store/index";
 import { toast } from "sonner";
+import Image from "./Image";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { addItem } = useCartStore();
 
   const handleAddtoCart = (product: Product) => {
     addItem(product);
-    toast.info("Item added to cart");
+    toast.info("Item added into cart");
   };
 
   return (
     <>
       <Link to={`/product/${product.id}`} className="flex flex-col p-2">
-        <img
-          src={flattenUrls(product.images)[0]}
-          className="bg-gray-50 rounded-lg  h-64 object-cover object-center hover:scale-105"
-        />
+        <Image src={flattenUrls(product.images)[0]} alt={product.title} />
         <p className="font-bold mt-2">{product.title}</p>
         <p className="text-gray-600 capitalize">{product.category.name}</p>
         <div className="flex flex-row items-center justify-between w-full">
