@@ -1,15 +1,19 @@
 import { Icon } from "@iconify/react";
-import { flattenUrls } from "../utils/tools";
-import { Product } from "../graphql/types";
+import { flattenUrls } from "@/utils/tools";
+import { Product } from "@/graphql/types";
+import { Link } from "react-router-dom";
+import { useCartStore } from "@/store/index";
 
 export const ProductCard = ({ product }: { product: Product }) => {
+  const { addItem } = useCartStore();
   const handleAddtoCart = (product: Product) => {
+    addItem(product);
     console.log(product);
   };
 
   return (
     <>
-      <a href={`/product/${product.id}`} className="flex flex-col p-2">
+      <Link to={`/product/${product.id}`} className="flex flex-col p-2">
         <img
           src={flattenUrls(product.images)[0]}
           className="bg-gray-50 rounded-lg  h-64 object-cover object-center hover:scale-105"
@@ -28,7 +32,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             <Icon icon="fa-solid:cart-plus" className="" />
           </button>
         </div>
-      </a>
+      </Link>
     </>
   );
 };

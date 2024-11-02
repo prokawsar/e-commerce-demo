@@ -1,7 +1,7 @@
 import { Toaster } from "sonner";
 import { Link, Outlet } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import Cart from "./components/Cart";
+import Cart from "@/components/Cart";
 import { useState } from "react";
 
 export function Layout() {

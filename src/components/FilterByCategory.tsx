@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_ALL_CATEGORY } from "../graphql/queries";
+import { GET_ALL_CATEGORY } from "@/graphql/queries";
 import { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 

@@ -1,15 +1,18 @@
 import { useQuery } from "@apollo/client";
-import { GET_ALL_PRODUCTS } from "./graphql/queries";
+import { GET_ALL_PRODUCTS } from "@/graphql/queries";
 import Banner from "./assets/banner.png";
-import { ProductCard } from "./components/ProductCard";
-import { FilterByCategory } from "./components/FilterByCategory";
+import { ProductCard } from "@/components/ProductCard";
+import { FilterByCategory } from "@/components/FilterByCategory";
 import { useState } from "react";
-import { Product } from "./graphql/types";
+import { Product } from "@/graphql/types";
+import { useCartStore } from "@/store/index";
 
 function App() {
   const { loading, data: products } = useQuery(GET_ALL_PRODUCTS);
   const [showAll, setShowAll] = useState(false);
+  const { items } = useCartStore();
 
+  console.log("cart items", items);
   const handleLoadMore = () => {
     setShowAll(true);
   };

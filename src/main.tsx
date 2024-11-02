@@ -2,7 +2,7 @@ import { StrictMode, Suspense } from "react";
 import "./index.css";
 import App from "./App.tsx";
 import { ApolloProvider } from "@apollo/client";
-import { graphQlClient } from "./graphql/main.ts";
+import { graphQlClient } from "@/graphql/main.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import Error from "./error.tsx";

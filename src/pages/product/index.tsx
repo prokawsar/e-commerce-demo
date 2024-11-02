@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSuspenseQuery } from "@apollo/client";
-import { GET_PRODUCT_BY_ID } from "../../graphql/queries";
+import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { Icon } from "@iconify/react";
-import { flattenUrls } from "../../utils/tools";
+import { flattenUrls } from "@/utils/tools";
 
 export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
