@@ -27,6 +27,7 @@ export const FilterByCategory = () => {
       queryParams.set("category", category.split(" ").join("-").toLowerCase());
       setSearchParams(queryParams);
     }
+    console.log(searchParams);
   };
 
   return (

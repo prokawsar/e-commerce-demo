@@ -1,6 +1,6 @@
 import { Product } from "@/graphql/types";
-import { create, StateCreator } from "zustand";
-import { persist, PersistOptions } from "zustand/middleware";
+import { create } from "zustand";
+// import { persist, PersistOptions } from "zustand/middleware";
 
 export type User = {
   id: string;
@@ -12,10 +12,10 @@ export interface UserState {
   setUser: (param: any) => void;
 }
 
-type UserPersist = (
-  config: StateCreator<UserState>,
-  options: PersistOptions<UserState>
-) => StateCreator<UserState>;
+// type UserPersist = (
+//   config: StateCreator<UserState>,
+//   options: PersistOptions<UserState>
+// ) => StateCreator<UserState>;
 
 export const useUserStore = create<UserState>((set) => ({
   userData: null,

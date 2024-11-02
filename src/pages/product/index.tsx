@@ -5,15 +5,18 @@ import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { Icon } from "@iconify/react";
 import { flattenUrls } from "@/utils/tools";
 import { useCartStore } from "@/store/index";
-import { Product } from "@/graphql/types";
+import { GetProductByIdResponse, Product } from "@/graphql/types";
 
 export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const { error, data } = useSuspenseQuery(GET_PRODUCT_BY_ID, {
-    variables: { id },
-  });
+  const { error, data } = useSuspenseQuery<GetProductByIdResponse>(
+    GET_PRODUCT_BY_ID,
+    {
+      variables: { id },
+    }
+  );
   const { addItem } = useCartStore();
 
   const product: Product = { ...data.product, quantity: 1 };
