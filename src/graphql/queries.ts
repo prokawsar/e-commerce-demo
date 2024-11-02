@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
 
+export const LOGIN = gql`
+  mutation Login($email: Email, $password: Password) {
+    login(email: $email, password: $password) {
+      access_token
+      refresh_token
+    }
+  }
+`;
+
 export const GET_ALL_PRODUCTS = gql`
   query GetAllProducts {
     products {
@@ -35,7 +44,7 @@ export const GET_PRODUCT_BY_ID = gql`
 `;
 
 export const GET_PRODUCTS_BY_PRICE = gql`
-  query {
+  query ProductsByPrice {
     products(price: 100) {
       title
       price
@@ -69,7 +78,7 @@ export const GET_PRODUCTS_BY_PRICE_RANGE = gql`
 `;
 
 export const GET_ALL_CATEGORY = gql`
-  query {
+  query GetAllCategory {
     categories {
       id
       name

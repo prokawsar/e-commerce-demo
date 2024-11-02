@@ -12,7 +12,7 @@ export default function Image({ src, alt, styles }: ImageProp) {
     <>
       <LazyLoadImage
         alt={alt}
-        className={`bg-gray-50 rounded-lg w-full h-64 object-cover object-center hover:scale-105 ${styles}`}
+        className={`bg-gray-50 z-0 rounded-lg w-full h-64 object-cover object-center hover:scale-105 ${styles}`}
         effect="blur"
         src={src}
       />

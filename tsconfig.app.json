@@ -10,6 +10,7 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/graphql/*": ["src/graphql/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/store/*": ["src/store/*"],
       "@/utils/*": ["src/utils/*"]
     },

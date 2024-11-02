@@ -3,15 +3,15 @@ import { flattenUrls } from "@/utils/tools";
 import { Product } from "@/graphql/types";
 import { Link } from "react-router-dom";
 import { useCartStore } from "@/store/index";
-import { toast } from "sonner";
 import Image from "./Image";
+import { useProtectedAction } from "../hooks/useProtectedAction";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { addItem } = useCartStore();
+  const { withAuth } = useProtectedAction();
 
   const handleAddtoCart = (product: Product) => {
-    addItem(product);
-    toast.info("Item added into cart");
+    withAuth(addItem, product);
   };
 
   return (

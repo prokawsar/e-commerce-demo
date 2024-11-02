@@ -1,4 +1,5 @@
 import { Product } from "@/graphql/types";
+import { toast } from "sonner";
 import { create } from "zustand";
 // import { persist, PersistOptions } from "zustand/middleware";
 
@@ -22,6 +23,20 @@ export const useUserStore = create<UserState>((set) => ({
   setUser: (value: any) => set(() => ({ userData: value })),
 }));
 
+interface AuthModalState {
+  isOpen: boolean;
+  pendingAction: (() => void) | null;
+  openModal: (action: () => void) => void;
+  closeModal: () => void;
+}
+
+export const useAuthModalStore = create<AuthModalState>((set) => ({
+  isOpen: false,
+  pendingAction: null,
+  openModal: (action) => set({ isOpen: true, pendingAction: action }),
+  closeModal: () => set({ isOpen: false, pendingAction: null }),
+}));
+
 interface cartState {
   items: Product[];
   addItem: (item: Product) => void;
@@ -32,7 +47,7 @@ interface cartState {
 
 export const useCartStore = create<cartState>()((set) => ({
   items: [],
-  addItem: (item: Product) =>
+  addItem: (item: Product) => {
     set(({ items }) => {
       const existingItem = items.find((product) => product.id === item.id);
       if (existingItem) {
@@ -41,7 +56,9 @@ export const useCartStore = create<cartState>()((set) => ({
         items.push({ ...item, quantity: item.quantity ?? 1 });
       }
       return { items };
-    }),
+    });
+    toast.info("Item added into cart");
+  },
   deleteItem: (id: string) =>
     set((state) => ({
       items: state.items.filter((item) => item.id !== id),

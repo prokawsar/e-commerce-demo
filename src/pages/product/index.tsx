@@ -7,12 +7,14 @@ import { flattenUrls } from "@/utils/tools";
 import { useCartStore } from "@/store/index";
 import { GetProductByIdResponse, Product } from "@/graphql/types";
 import Image from "@/components/Image";
-import { toast } from "sonner";
+import { useProtectedAction } from "@/hooks/useProtectedAction";
 
 export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const { withAuth } = useProtectedAction();
+
   const { error, data } = useSuspenseQuery<GetProductByIdResponse>(
     GET_PRODUCT_BY_ID,
     {
@@ -48,8 +50,7 @@ export const ProductDetails = () => {
 
   const handleAddToCart = () => {
     product.quantity = quantity;
-    addItem(product);
-    toast.info("Item added into cart");
+    withAuth(addItem, product);
   };
 
   return (
