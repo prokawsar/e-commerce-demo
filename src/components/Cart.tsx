@@ -6,7 +6,7 @@ import CartFooter from "@/components/CartFooter";
 type Props = {
   showCart: boolean;
   data?: undefined;
-  setShowCart: Function;
+  setShowCart: (value: boolean) => void;
 };
 
 export default function Cart({ showCart, setShowCart }: Props) {
