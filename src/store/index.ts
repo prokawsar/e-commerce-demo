@@ -6,6 +6,7 @@ import { create } from "zustand";
 export type User = {
   id: string;
   email: string;
+  access_token: string;
 };
 
 export interface UserState {
