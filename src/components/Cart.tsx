@@ -29,7 +29,7 @@ export default function Cart({ showCart, setShowCart }: Props) {
         className={`fixed right-0 top-0 z-10 h-screen w-full border-l-[1.5px] border-gray-200 bg-gray-50 pt-8 transition-all sm:translate-x-0 md:w-96`}
         aria-label="sidebar"
       >
-        <div className="relative flex flex-col h-full w-full overflow-y-auto px-3 pb-4">
+        <div className="relative flex flex-col h-full w-full px-3 pb-4">
           <div className="flex flex-row justify-between items-center">
             <h5 className="mb-4 inline-flex items-center text-lg font-semibold text-gray-500">
               Cart
@@ -44,7 +44,7 @@ export default function Cart({ showCart, setShowCart }: Props) {
           </div>
 
           <div className="flex flex-col justify-between h-full">
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 overflow-x-auto max-h-[85%]">
               {items.map((item, index) => (
                 <div
                   key={item.id}
