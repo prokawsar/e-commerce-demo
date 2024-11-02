@@ -3,12 +3,14 @@ import { flattenUrls } from "@/utils/tools";
 import { Product } from "@/graphql/types";
 import { Link } from "react-router-dom";
 import { useCartStore } from "@/store/index";
+import { toast } from "sonner";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { addItem } = useCartStore();
+
   const handleAddtoCart = (product: Product) => {
     addItem(product);
-    console.log(product);
+    toast.info("Item added to cart");
   };
 
   return (

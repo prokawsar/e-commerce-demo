@@ -38,7 +38,7 @@ export const useCartStore = create<cartState>()((set) => ({
       if (existingItem) {
         existingItem.quantity++;
       } else {
-        items.push({ ...item, quantity: 1 });
+        items.push({ ...item, quantity: item.quantity ?? 1 });
       }
       return { items };
     }),

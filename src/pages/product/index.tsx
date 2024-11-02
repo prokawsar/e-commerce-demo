@@ -4,6 +4,8 @@ import { useSuspenseQuery } from "@apollo/client";
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { Icon } from "@iconify/react";
 import { flattenUrls } from "@/utils/tools";
+import { useCartStore } from "@/store/index";
+import { Product } from "@/graphql/types";
 
 export const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,11 +14,12 @@ export const ProductDetails = () => {
   const { error, data } = useSuspenseQuery(GET_PRODUCT_BY_ID, {
     variables: { id },
   });
+  const { addItem } = useCartStore();
 
-  // if (loading) return <p>Loading...</p>;
+  const product: Product = { ...data.product, quantity: 1 };
+
   if (error) return <p>Error: {error.message}</p>;
 
-  const product = data.product;
   const handleNext = () => {
     setCurrentImageIndex(
       (prevIndex) => (prevIndex + 1) % product.images.length
@@ -38,18 +41,21 @@ export const ProductDetails = () => {
     setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
   };
 
+  const handleAddToCart = () => {
+    product.quantity = quantity;
+    addItem(product);
+  };
+
   return (
     <div className="flex p-4 flex-col gap-6 md:flex-row max-w-7xl mx-auto">
       <div className="flex-1 relative min-h-60">
         {product.images.length > 1 && (
-          <>
-            <button
-              onClick={handlePrev}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 rounded-full p-2 hover:bg-gray-400"
-            >
-              <Icon icon="mdi:chevron-left" />
-            </button>
-          </>
+          <button
+            onClick={handlePrev}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 rounded-full p-2 hover:bg-gray-400"
+          >
+            <Icon icon="mdi:chevron-left" />
+          </button>
         )}
         <img
           src={flattenUrls(product.images)[currentImageIndex]}
@@ -87,7 +93,10 @@ export const ProductDetails = () => {
           </button>
         </div>
 
-        <button className="mt-6 w-full bg-yellow-400  py-2 rounded-md hover:bg-yellow-500">
+        <button
+          onClick={handleAddToCart}
+          className="mt-6 w-full bg-yellow-400  py-2 rounded-md hover:bg-yellow-500"
+        >
           Add to Cart
         </button>
       </div>

@@ -1,7 +1,6 @@
-// import { useState, useEffect } from "react";
-// import { toast } from "sonner";
 import { Icon } from "@iconify/react";
 import { useCartStore } from "@/store/index";
+import { Product } from "@/graphql/types";
 
 type Props = {
   showCart: boolean;
@@ -13,6 +12,17 @@ export default function Cart({ showCart, setShowCart }: Props) {
   const { items, increaseQuantity, decreaseQuantity, deleteItem } =
     useCartStore();
 
+  const calculateTotalAmount = () =>
+    items.reduce(
+      (total, item) => total + Number(item.price) * item.quantity,
+      0
+    );
+
+  const calculateTotalCost = (item: Product) => {
+    const price = item.quantity * Number(item.price);
+    return price;
+  };
+
   return (
     showCart && (
       <div
@@ -21,11 +31,8 @@ export default function Cart({ showCart, setShowCart }: Props) {
       >
         <div className="relative flex flex-col h-full w-full overflow-y-auto px-3 pb-4">
           <div className="flex flex-row justify-between items-center">
-            <h5
-              id="drawer-left-label"
-              className="mb-4 inline-flex items-center text-lg font-semibold text-gray-500"
-            >
-              Shopping Cart
+            <h5 className="mb-4 inline-flex items-center text-lg font-semibold text-gray-500">
+              Cart
             </h5>
             <button
               onClick={() => setShowCart(!showCart)}
@@ -41,7 +48,7 @@ export default function Cart({ showCart, setShowCart }: Props) {
               {items.map((item, index) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-1 justify-between border-b border-gray-200 pb-2 mb-2"
+                  className="flex items-start gap-1 justify-between border-b border-gray-200 pb-2 mb-2"
                 >
                   <span className="text-gray-500">{index + 1}</span>
                   <img
@@ -54,7 +61,8 @@ export default function Cart({ showCart, setShowCart }: Props) {
                       {item.title}
                     </span>
                     <span className="text-gray-700">
-                      ${item.price.toFixed(2)}
+                      ${item.price.toFixed(2)} X {item.quantity} = $
+                      {calculateTotalCost(item)}
                     </span>
                   </div>
 
@@ -86,9 +94,16 @@ export default function Cart({ showCart, setShowCart }: Props) {
                 </div>
               ))}
             </div>
-            <button className="bg-yellow-400 hover:bg-yellow-500 rounded-md py-1">
-              Checkout
-            </button>
+
+            <div className="flex flex-col gap-2">
+              <span className="flex flex-row items-center justify-between text-lg">
+                <p>Total price:</p>
+                <p className="font-bold">${calculateTotalAmount()}</p>
+              </span>
+              <button className="bg-yellow-400 hover:bg-yellow-500 rounded-md py-1">
+                Checkout
+              </button>
+            </div>
           </div>
         </div>
       </div>
