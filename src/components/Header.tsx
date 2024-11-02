@@ -22,7 +22,7 @@ export default function Header({ showCart, setShowCart }: HeaderProp) {
     console.log("User logged out");
   };
   return (
-    <div className="fixed z-10 top-0 bg-slate-50 w-full py-2">
+    <div className="fixed z-10 top-0 bg-slate-50 w-full py-2 shadow">
       <nav className="max-w-7xl px-5 lg:px-3 mx-auto w-full gap-2 flex items-center h-10">
         <Link to="/">
           <Icon icon="noto:shopping-bags" width="30px" />
