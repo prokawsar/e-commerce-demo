@@ -20,6 +20,7 @@ export const GET_ALL_PRODUCTS = gql`
 export const GET_PRODUCT_BY_ID = gql`
   query Product($id: ID!) {
     product(id: $id) {
+      id
       title
       price
       description
