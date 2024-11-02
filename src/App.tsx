@@ -6,6 +6,7 @@ import { FilterByCategory } from "@/components/FilterByCategory";
 import { useState } from "react";
 import { Product } from "@/graphql/types";
 import { useCartStore } from "@/store/index";
+import Loader from "@/components/Loader";
 
 function App() {
   const { loading, data: products } = useQuery(GET_ALL_PRODUCTS);
@@ -25,7 +26,7 @@ function App() {
         </div>
         <div className="flex flex-col gap-4 w-full max-w-7xl max-auto items-center">
           {loading ? (
-            "Loading..."
+            <Loader />
           ) : (
             <>
               <p>Total {products.products?.length} Products</p>

@@ -8,6 +8,7 @@ import ReactDOM from "react-dom/client";
 import Error from "./error.tsx";
 import { Layout } from "./layout.tsx";
 import { ProductDetails } from "./pages/product/index.tsx";
+import Loader from "@/components/Loader.tsx";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: (
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<Loader />}>
             <ProductDetails />,
           </Suspense>
         ),

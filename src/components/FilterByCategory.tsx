@@ -31,12 +31,12 @@ export const FilterByCategory = () => {
 
   return (
     <div
-      className="flex flex-row gap-2 w-full overflow-auto"
+      className="flex flex-row gap-2 w-full overflow-auto px-3"
       style={{ scrollbarWidth: "none" }}
     >
       <button
         onClick={() => handleCategoryChange("all")}
-        className={`px-2 py-1 bg-gray-100 rounded-xl ${
+        className={`px-2 py-1 bg-gray-100 rounded-full ${
           activeCategory == "all" ? "bg-gray-600 text-white" : "text-gray-500"
         }`}
       >
@@ -48,7 +48,7 @@ export const FilterByCategory = () => {
             <button
               onClick={() => handleCategoryChange(category.name)}
               key={index}
-              className={`px-2 py-1 bg-gray-100 rounded-xl ${
+              className={`px-2 py-1 bg-gray-100 rounded-full ${
                 activeCategory ==
                 category.name.split(" ").join("-").toLowerCase()
                   ? "!bg-gray-600 !text-white"
