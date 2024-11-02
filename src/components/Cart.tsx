@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useCartStore } from "@/store/index";
-import { Product } from "@/graphql/types";
+import CartItem from "@/components/CartItem";
+import CartFooter from "@/components/CartFooter";
 
 type Props = {
   showCart: boolean;
@@ -17,11 +18,6 @@ export default function Cart({ showCart, setShowCart }: Props) {
       (total, item) => total + Number(item.price) * item.quantity,
       0
     );
-
-  const calculateTotalCost = (item: Product) => {
-    const price = item.quantity * Number(item.price);
-    return price;
-  };
 
   return (
     showCart && (
@@ -46,64 +42,18 @@ export default function Cart({ showCart, setShowCart }: Props) {
           <div className="flex flex-col justify-between h-full">
             <div className="flex flex-col gap-3 overflow-x-auto max-h-[85%]">
               {items.map((item, index) => (
-                <div
+                <CartItem
                   key={item.id}
-                  className="flex items-start gap-1 justify-between border-b border-gray-200 pb-2 mb-2"
-                >
-                  <span className="text-gray-500">{index + 1}</span>
-                  <img
-                    src={item.images[0]}
-                    alt={item.title}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                  <div className="flex flex-col px-1">
-                    <span className="flex-1 text-gray-700 text-sm">
-                      {item.title}
-                    </span>
-                    <span className="text-gray-700">
-                      ${item.price.toFixed(2)} X {item.quantity} = $
-                      {calculateTotalCost(item)}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col items-end gap-3">
-                    <button onClick={() => deleteItem(item.id)}>
-                      <Icon
-                        icon="iconamoon:trash"
-                        width="20px"
-                        className="text-red-400"
-                      />
-                    </button>
-                    <div className="flex items-center">
-                      <button
-                        onClick={() => decreaseQuantity(item.id)}
-                        className="bg-slate-200 rounded-full p-1 active:hover:bg-slate-400 disabled:text-gray-400"
-                        disabled={item.quantity <= 1}
-                      >
-                        <Icon icon="mdi:minus" />
-                      </button>
-                      <span className="mx-2">{item.quantity}</span>
-                      <button
-                        onClick={() => increaseQuantity(item.id)}
-                        className="bg-slate-200 rounded-full p-1 hover:bg-slate-400"
-                      >
-                        <Icon icon="mdi:plus" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                  index={index}
+                  item={item}
+                  onDecrease={decreaseQuantity}
+                  onIncrease={increaseQuantity}
+                  onDelete={deleteItem}
+                />
               ))}
             </div>
 
-            <div className="flex flex-col gap-2">
-              <span className="flex flex-row items-center justify-between text-lg">
-                <p>Total price:</p>
-                <p className="font-bold">${calculateTotalAmount()}</p>
-              </span>
-              <button className="bg-yellow-400 hover:bg-yellow-500 rounded-md py-1">
-                Checkout
-              </button>
-            </div>
+            <CartFooter total={calculateTotalAmount()} />
           </div>
         </div>
       </div>

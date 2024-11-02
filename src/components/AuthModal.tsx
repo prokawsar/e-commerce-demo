@@ -19,11 +19,11 @@ export const AuthModal = () => {
     const password = formData.get("password");
     if (!password || !email) return;
 
-    const payload = {
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
-    console.log(payload);
+    // const payload = {
+    //   email: formData.get("email"),
+    //   password: formData.get("password"),
+    // };
+
     // Fake api doesn't support signup
     if (signUpForm) return;
 

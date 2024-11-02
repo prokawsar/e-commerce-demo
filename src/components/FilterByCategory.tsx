@@ -38,7 +38,7 @@ export const FilterByCategory = ({
             onClick={onChangeCategory}
           />
 
-          {categories?.categories?.map((category: Category, index: number) => {
+          {categories?.categories?.map((category: Category) => {
             return (
               <CategoryButton
                 key={category.id}
