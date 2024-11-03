@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Cart from "@/components/Cart";
 import { useState } from "react";
 import Header from "@/components/Header";
-import { AuthModal } from "./components/AuthModal";
+import { AuthModal } from "@/components/AuthModal";
 
 export function Layout() {
   const [showCart, setShowCart] = useState(false);

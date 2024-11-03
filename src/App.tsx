@@ -6,7 +6,7 @@ import {
 } from "@/graphql/queries";
 import Banner from "./assets/banner.png";
 import { FilterByCategory } from "@/components/FilterByCategory";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Category, Product } from "@/graphql/types";
 import Loader from "@/components/Loader";
 import { useSearchParams } from "react-router-dom";
@@ -17,29 +17,34 @@ import { toast } from "sonner";
 import { useSyncCartWithUser } from "./hooks/useSyncCartWithUser";
 
 function App() {
-  const [showAll, setShowAll] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(categoryAll);
-  const [products, setProducts] = useState<{ products: Product[] }>({
-    products: [],
-  });
   const [searchParams, setSearchParams] = useSearchParams();
   const { loading, data: allProducts } = useQuery(GET_ALL_PRODUCTS);
   const [getbycategory, { loading: filtering }] = useLazyQuery(
     GET_PRODUCTS_BY_CATEGORY
   );
   const [filterProducts] = useLazyQuery(FILTER_PRODUCTS);
+
+  const [showAll, setShowAll] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(categoryAll);
+  const [products, setProducts] = useState<{ products: Product[] }>({
+    products: [],
+  });
   const [sortDirection, setSortDirection] = useState(
     searchParams.get("sort") || ""
   );
+
   useSyncCartWithUser();
 
-  const handleSort = (direction: string) => {
-    setSortDirection(direction);
-    if (direction && products?.products) {
-      const sortedProducts = sortByPrice([...products.products], direction);
-      setProducts({ products: sortedProducts });
-    }
-  };
+  const handleSort = useCallback(
+    (direction: string) => {
+      setSortDirection(direction);
+      if (direction && products?.products) {
+        const sortedProducts = sortByPrice([...products.products], direction);
+        setProducts({ products: sortedProducts });
+      }
+    },
+    [products]
+  );
 
   const handleApplyFilters = async (filters: {
     price_min?: number;
@@ -73,7 +78,6 @@ function App() {
       const { data } = await getbycategory({
         variables: { id: Number(category.id) },
       });
-      console.log(data);
       setProducts(data);
     }
     setSearchParams(searchParams);
