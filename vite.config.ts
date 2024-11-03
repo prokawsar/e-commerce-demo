@@ -8,6 +8,7 @@ export default defineConfig(() => {
     plugins: [react()],
     resolve: {
       alias: {
+        "@/pages": path.resolve(__dirname, "src/pages"),
         "@/components": path.resolve(__dirname, "src/components"),
         "@/graphql": path.resolve(__dirname, "src/graphql"),
         "@/hooks": path.resolve(__dirname, "src/hooks"),
