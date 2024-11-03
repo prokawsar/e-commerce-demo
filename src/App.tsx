@@ -42,6 +42,7 @@ function App() {
   const handleApplyFilters = async (filters: {
     price_min?: number;
     price_max?: number;
+    categoryId?: number;
   }) => {
     try {
       const { data } = await filterProducts({

@@ -54,8 +54,12 @@ export const GET_PRODUCT_BY_ID = gql`
 `;
 
 export const FILTER_PRODUCTS = gql`
-  query FilterProducts($price_min: Int, $price_max: Int) {
-    products(price_min: $price_min, price_max: $price_max) {
+  query FilterProducts($categoryId: Float, $price_min: Int, $price_max: Int) {
+    products(
+      categoryId: $categoryId
+      price_min: $price_min
+      price_max: $price_max
+    ) {
       id
       title
       price

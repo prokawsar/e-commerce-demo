@@ -47,6 +47,7 @@ export default function ProductFilters({
     const filters: {
       price_min?: number;
       price_max?: number;
+      categoryId?: number;
     } = {};
 
     if (priceRange.min) {
@@ -61,6 +62,10 @@ export default function ProductFilters({
       searchParams.set("price_max", priceRange.max);
     } else {
       searchParams.delete("price_max");
+    }
+    const categoryId = searchParams.get("category");
+    if (categoryId) {
+      filters.categoryId = parseFloat(categoryId);
     }
 
     setSearchParams(searchParams);
@@ -114,7 +119,10 @@ export default function ProductFilters({
           {isLoading ? "Applying..." : "Apply"}
         </button>
         <button
-          onClick={onReset}
+          onClick={() => {
+            setPriceRange({ min: "", max: "" });
+            return onReset ? onReset() : "";
+          }}
           disabled={isLoading}
           className="bg-gray-200 rounded-full px-4 py-1 hover:bg-gray-300 text-sm disabled:bg-gray-100 disabled:cursor-not-allowed"
         >
