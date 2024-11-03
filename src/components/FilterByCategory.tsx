@@ -3,6 +3,7 @@ import { GET_ALL_CATEGORY } from "@/graphql/queries";
 import Loader from "./Loader";
 import { Category } from "@/graphql/types";
 import CategoryButton from "@/components/CategoryButton";
+import { categoryAll } from "@/utils/tools";
 
 type FilterByCategoryType = {
   filtering?: boolean;
@@ -16,11 +17,6 @@ export const FilterByCategory = ({
   onChangeCategory,
 }: FilterByCategoryType) => {
   const { data: categories, loading } = useQuery(GET_ALL_CATEGORY);
-  const categoryAll = {
-    id: "all",
-    name: "All",
-    image: "",
-  };
 
   return (
     <div

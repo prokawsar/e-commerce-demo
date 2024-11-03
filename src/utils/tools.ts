@@ -1,4 +1,4 @@
-import { Product } from "@/graphql/types";
+import { Category, Product } from "@/graphql/types";
 
 export const flattenUrls = (urls: string[]) => {
   return urls.map((url) => url.replaceAll(/^"|\["|"\]|"$/g, ""));
@@ -13,4 +13,10 @@ export const sortByPrice = (prices: Product[], direction: string) => {
     }
     return 0;
   });
+};
+
+export const categoryAll: Category = {
+  name: "All",
+  id: "all",
+  image: "",
 };

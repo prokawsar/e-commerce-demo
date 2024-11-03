@@ -5,12 +5,14 @@ interface FilterProps {
   sortDirection: string;
   onApplyFilters: (filters: { price_min?: number; price_max?: number }) => void;
   isLoading?: boolean;
+  onReset?: () => void;
   onSort: (direction: string) => void;
 }
 
 export default function ProductFilters({
   sortDirection,
   onApplyFilters,
+  onReset,
   isLoading,
   onSort,
 }: FilterProps) {
@@ -65,17 +67,6 @@ export default function ProductFilters({
     onApplyFilters(filters);
   };
 
-  const handleReset = () => {
-    setPriceRange({ min: "", max: "" });
-    searchParams.delete("price_min");
-    searchParams.delete("price_max");
-    searchParams.delete("sort");
-    searchParams.delete("category");
-    setSearchParams(searchParams);
-    onSort("");
-    onApplyFilters({});
-  };
-
   return (
     <div className="flex flex-col md:flex-row w-full gap-4 p-3 md:px-0">
       <div className="flex flex-col md:flex-row gap-3">
@@ -123,7 +114,7 @@ export default function ProductFilters({
           {isLoading ? "Applying..." : "Apply"}
         </button>
         <button
-          onClick={handleReset}
+          onClick={onReset}
           disabled={isLoading}
           className="bg-gray-200 rounded-full px-4 py-1 hover:bg-gray-300 text-sm disabled:bg-gray-100 disabled:cursor-not-allowed"
         >

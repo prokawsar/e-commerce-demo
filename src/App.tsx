@@ -12,14 +12,8 @@ import Loader from "@/components/Loader";
 import { useSearchParams } from "react-router-dom";
 import ProductGrid from "@/components/ProductGrid";
 import ProductFilters from "./components/ProductFilters";
-import { sortByPrice } from "./utils/tools";
+import { categoryAll, sortByPrice } from "./utils/tools";
 import { toast } from "sonner";
-
-const categoryAll = {
-  name: "all",
-  id: "all",
-  image: "",
-};
 
 function App() {
   const [showAll, setShowAll] = useState(false);
@@ -76,6 +70,7 @@ function App() {
       const { data } = await getbycategory({
         variables: { id: Number(category.id) },
       });
+      console.log(data);
       setProducts(data);
     }
     setSearchParams(searchParams);
@@ -90,16 +85,24 @@ function App() {
   useEffect(() => {
     if (searchParams.size > 0) {
       const id = searchParams.get("category") || "";
-      const sortDirection = searchParams.get("sort") || "";
 
       handleCategoryChange({
-        name: "",
         id,
-        image: "",
       });
-      handleSort(sortDirection);
     }
   }, []);
+
+  const handleReset = () => {
+    searchParams.delete("price_min");
+    searchParams.delete("price_max");
+    searchParams.delete("sort");
+    searchParams.delete("category");
+    setSortDirection("");
+    setSearchParams(searchParams);
+    handleCategoryChange({
+      id: "all",
+    });
+  };
 
   return (
     <>
@@ -114,6 +117,7 @@ function App() {
         <div className="flex flex-col gap-4 w-full max-w-7xl max-auto items-center">
           <ProductFilters
             sortDirection={sortDirection}
+            onReset={handleReset}
             onSort={handleSort}
             isLoading={loading || filtering}
             onApplyFilters={handleApplyFilters}
