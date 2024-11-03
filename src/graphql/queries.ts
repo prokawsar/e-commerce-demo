@@ -117,3 +117,13 @@ export const GET_ALL_CATEGORY = gql`
     }
   }
 `;
+
+export const GET_PROFILE = gql`
+  query GerProfile {
+    profile {
+      id
+      name
+      avatar
+    }
+  }
+`;

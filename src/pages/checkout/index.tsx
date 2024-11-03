@@ -158,7 +158,7 @@ export default function Checkout() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-yellow-400 w-full justify-center flex hover:bg-yellow-500 transition-colors rounded-full py-1"
+                  className="bg-yellow-400 w-full justify-center flex hover:bg-yellow-500 transition-colors rounded-full py-2"
                 >
                   {isSubmitting ? "Processing..." : "Confirm Order"}
                 </button>

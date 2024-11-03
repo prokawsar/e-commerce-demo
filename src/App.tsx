@@ -14,6 +14,7 @@ import ProductGrid from "@/components/ProductGrid";
 import ProductFilters from "./components/ProductFilters";
 import { categoryAll, sortByPrice } from "./utils/tools";
 import { toast } from "sonner";
+import { useSyncCartWithUser } from "./hooks/useSyncCartWithUser";
 
 function App() {
   const [showAll, setShowAll] = useState(false);
@@ -30,6 +31,7 @@ function App() {
   const [sortDirection, setSortDirection] = useState(
     searchParams.get("sort") || ""
   );
+  useSyncCartWithUser();
 
   const handleSort = (direction: string) => {
     setSortDirection(direction);
@@ -51,7 +53,7 @@ function App() {
 
       if (sortDirection) handleSort(sortDirection);
       else setProducts(data);
-    } catch (error) {
+    } catch {
       toast.error("Error filtering products");
     }
   };
