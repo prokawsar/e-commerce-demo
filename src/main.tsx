@@ -7,8 +7,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import Error from "./error.tsx";
 import { Layout } from "./layout.tsx";
-import { ProductDetails } from "./pages/product/index.tsx";
 import Loader from "@/components/Loader.tsx";
+import { ProductDetails } from "./pages/product/index.tsx";
+import Checkout from "./pages/checkout/index.tsx";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <ProductDetails />,
+          </Suspense>
+        ),
+      },
+      {
+        path: "/checkout",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Checkout />,
           </Suspense>
         ),
       },

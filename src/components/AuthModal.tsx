@@ -90,14 +90,14 @@ export const AuthModal = () => {
           {signUpForm ? "Signup" : "Login"}
         </button>
         {signUpForm && (
-          <p>
+          <p className="text-center">
             Already have account?{" "}
             <button onClick={() => setSignupForm(false)}>Login here</button>
           </p>
         )}
 
         {!signUpForm && (
-          <p>
+          <p className="text-center">
             Don't have any account?{" "}
             <button onClick={() => setSignupForm(true)}>Signup here</button>
           </p>

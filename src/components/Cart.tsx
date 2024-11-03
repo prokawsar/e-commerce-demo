@@ -53,7 +53,10 @@ export default function Cart({ showCart, setShowCart }: Props) {
               ))}
             </div>
 
-            <CartFooter total={calculateTotalAmount()} />
+            <CartFooter
+              setShowCart={setShowCart}
+              total={calculateTotalAmount()}
+            />
           </div>
         </div>
       </div>

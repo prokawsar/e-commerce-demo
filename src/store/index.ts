@@ -35,6 +35,7 @@ export const useAuthModalStore = create<AuthModalState>((set) => ({
 interface cartState {
   items: Product[];
   addItem: (item: Product) => void;
+  clearCart: () => void;
   deleteItem: (id: string) => void;
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
@@ -57,6 +58,10 @@ export const useCartStore = create<cartState>()((set) => ({
   deleteItem: (id: string) =>
     set((state) => ({
       items: state.items.filter((item) => item.id !== id),
+    })),
+  clearCart: () =>
+    set(() => ({
+      items: [],
     })),
   increaseQuantity: (id: string) =>
     set((state) => {
