@@ -5,7 +5,7 @@ export const flattenUrls = (urls: string[]) => {
 };
 
 export const sortByPrice = (prices: Product[], direction: string) => {
-  return prices.sort((a, b) => {
+  return prices?.sort((a, b) => {
     if (direction === "asc") {
       return a.price - b.price;
     } else if (direction === "desc") {

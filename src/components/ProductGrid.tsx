@@ -1,19 +1,27 @@
 import { Product } from "@/graphql/types";
 import { ProductCard } from "@/components/ProductCard";
-import { useCallback } from "react";
+import { useMemo } from "react";
+import { sortByPrice } from "@/utils/tools";
 
 export default function ProductGrid({
   products,
   showAll = false,
+  sortDirection,
 }: {
   products: { products: Product[] };
   showAll?: boolean;
+  sortDirection?: string;
 }) {
-  const getDisplayProducts = useCallback(() => {
+  const getDisplayProducts = useMemo(() => {
     const allProducts = products.products;
 
     if (showAll) {
+      if (allProducts && sortDirection)
+        return sortByPrice([...allProducts], sortDirection);
       return allProducts;
+    }
+    if (sortDirection) {
+      return sortByPrice([...allProducts], sortDirection).slice(0, 9);
     }
 
     return allProducts?.slice(0, 9);
@@ -21,7 +29,7 @@ export default function ProductGrid({
 
   return (
     <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-4">
-      {!getDisplayProducts().length && (
+      {!getDisplayProducts.length && (
         <>
           <p></p>
           <p className="text-center text-xl">No product found</p>
@@ -29,7 +37,7 @@ export default function ProductGrid({
         </>
       )}
 
-      {getDisplayProducts()?.map((product: Product, index: number) => (
+      {getDisplayProducts?.map((product: Product, index: number) => (
         <ProductCard key={index} product={product} />
       ))}
     </div>

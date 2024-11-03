@@ -12,7 +12,7 @@ import Loader from "@/components/Loader";
 import { useSearchParams } from "react-router-dom";
 import ProductGrid from "@/components/ProductGrid";
 import ProductFilters from "@/components/ProductFilters";
-import { categoryAll, sortByPrice } from "@/utils/tools";
+import { categoryAll } from "@/utils/tools";
 import { toast } from "sonner";
 import { useSyncCartWithUser } from "@/hooks/useSyncCartWithUser";
 
@@ -38,10 +38,6 @@ function Home() {
   const handleSort = useCallback(
     (direction: string) => {
       setSortDirection(direction);
-      if (direction && products?.products) {
-        const sortedProducts = sortByPrice([...products.products], direction);
-        setProducts({ products: sortedProducts });
-      }
     },
     [products]
   );
@@ -56,8 +52,7 @@ function Home() {
         variables: filters,
       });
 
-      if (sortDirection) handleSort(sortDirection);
-      else setProducts(data);
+      setProducts(data);
     } catch {
       toast.error("Error filtering products");
     }
@@ -83,6 +78,18 @@ function Home() {
     setSearchParams(searchParams);
   };
 
+  const handleReset = () => {
+    searchParams.delete("price_min");
+    searchParams.delete("price_max");
+    searchParams.delete("sort");
+    searchParams.delete("category");
+    setSortDirection("");
+    setSearchParams(searchParams);
+    handleCategoryChange({
+      id: "all",
+    });
+  };
+
   useEffect(() => {
     if (!loading) {
       setProducts(allProducts);
@@ -98,18 +105,6 @@ function Home() {
       });
     }
   }, []);
-
-  const handleReset = () => {
-    searchParams.delete("price_min");
-    searchParams.delete("price_max");
-    searchParams.delete("sort");
-    searchParams.delete("category");
-    setSortDirection("");
-    setSearchParams(searchParams);
-    handleCategoryChange({
-      id: "all",
-    });
-  };
 
   return (
     <>
@@ -139,6 +134,7 @@ function Home() {
             <Loader />
           ) : (
             <ProductGrid
+              sortDirection={sortDirection}
               showAll={showAll}
               products={{ products: products.products }}
             />
