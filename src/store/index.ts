@@ -70,7 +70,7 @@ export const useCartStore = create<cartState>()(
           }
           return { items };
         });
-        toast.info("Item added into cart");
+        toast.info(item.title.slice(0, 15) + "... added into cart");
       },
       deleteItem: (id: string) =>
         set((state) => ({
