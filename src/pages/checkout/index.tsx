@@ -1,6 +1,6 @@
 import OrderConfirm from "@/components/OrderConfirm";
 import { useCartStore, useUserStore } from "@/store/index";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
@@ -18,10 +18,12 @@ export default function Checkout() {
     phone: "",
   });
 
-  if (!userData) {
-    navigate("/");
-    return;
-  }
+  useEffect(() => {
+    if (!userData) {
+      navigate("/");
+      return;
+    }
+  }, []);
 
   const totalAmount = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
