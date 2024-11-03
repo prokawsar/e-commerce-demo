@@ -1,4 +1,4 @@
-import { StrictMode, Suspense } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import "./index.css";
 import App from "./App.tsx";
 import { ApolloProvider } from "@apollo/client";
@@ -8,8 +8,9 @@ import ReactDOM from "react-dom/client";
 import Error from "./error.tsx";
 import { Layout } from "./layout.tsx";
 import Loader from "@/components/Loader.tsx";
-import { ProductDetails } from "./pages/product/index.tsx";
-import Checkout from "./pages/checkout/index.tsx";
+
+const ProductDetails = lazy(() => import("./pages/product/index.tsx"));
+const Checkout = lazy(() => import("./pages/checkout/index.tsx"));
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

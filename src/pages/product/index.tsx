@@ -9,7 +9,7 @@ import { GetProductByIdResponse, Product } from "@/graphql/types";
 import Image from "@/components/Image";
 import { useProtectedAction } from "@/hooks/useProtectedAction";
 
-export const ProductDetails = () => {
+export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -82,8 +82,9 @@ export const ProductDetails = () => {
 
       <div className="flex-1">
         <h1 className="text-2xl font-bold">{product.title}</h1>
-        <p className="text-lg text-gray-700">${product.price}</p>
-        <p className="mt-4">{product.description}</p>
+        <p className="text-lg">{product.category.name}</p>
+        <p className="my-3">{product.description}</p>
+        <p className="text-lg text-gray-700 font-bold">${product.price}</p>
 
         <div className="mt-4 flex items-center">
           <button
@@ -110,4 +111,4 @@ export const ProductDetails = () => {
       </div>
     </div>
   );
-};
+}
