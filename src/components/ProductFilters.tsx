@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface FilterProps {
+  sortDirection: string;
   onApplyFilters: (filters: { price_min?: number; price_max?: number }) => void;
   isLoading?: boolean;
   onSort: (direction: string) => void;
 }
 
 export default function ProductFilters({
+  sortDirection,
   onApplyFilters,
   isLoading,
   onSort,
@@ -17,13 +19,9 @@ export default function ProductFilters({
     min: searchParams.get("price_min") || "",
     max: searchParams.get("price_max") || "",
   });
-  const [sortDirection, setSortDirection] = useState(
-    searchParams.get("sort") || ""
-  );
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newDirection = e.target.value;
-    setSortDirection(newDirection);
 
     if (newDirection) {
       searchParams.set("sort", newDirection);
@@ -35,7 +33,7 @@ export default function ProductFilters({
     onSort(newDirection);
   };
 
-  const handlePriceRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePriceRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPriceRange((prev) => ({
       ...prev,
@@ -69,12 +67,12 @@ export default function ProductFilters({
 
   const handleReset = () => {
     setPriceRange({ min: "", max: "" });
-    setSortDirection("");
     searchParams.delete("price_min");
     searchParams.delete("price_max");
     searchParams.delete("sort");
     searchParams.delete("category");
     setSearchParams(searchParams);
+    onSort("");
     onApplyFilters({});
   };
 

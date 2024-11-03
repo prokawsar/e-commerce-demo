@@ -15,13 +15,15 @@ import ProductFilters from "./components/ProductFilters";
 import { sortByPrice } from "./utils/tools";
 import { toast } from "sonner";
 
+const categoryAll = {
+  name: "all",
+  id: "all",
+  image: "",
+};
+
 function App() {
   const [showAll, setShowAll] = useState(false);
-  const [activeCategory, setActiveCategory] = useState({
-    name: "all",
-    id: "all",
-    image: "",
-  });
+  const [activeCategory, setActiveCategory] = useState(categoryAll);
   const [products, setProducts] = useState<{ products: Product[] }>({
     products: [],
   });
@@ -31,11 +33,13 @@ function App() {
     GET_PRODUCTS_BY_CATEGORY
   );
   const [filterProducts] = useLazyQuery(FILTER_PRODUCTS);
-  const [sortDirection, setSortDirection] = useState<string>("");
+  const [sortDirection, setSortDirection] = useState(
+    searchParams.get("sort") || ""
+  );
 
   const handleSort = (direction: string) => {
     setSortDirection(direction);
-    if (products?.products) {
+    if (direction && products?.products) {
       const sortedProducts = sortByPrice([...products.products], direction);
       setProducts({ products: sortedProducts });
     }
@@ -109,6 +113,7 @@ function App() {
 
         <div className="flex flex-col gap-4 w-full max-w-7xl max-auto items-center">
           <ProductFilters
+            sortDirection={sortDirection}
             onSort={handleSort}
             isLoading={loading || filtering}
             onApplyFilters={handleApplyFilters}
