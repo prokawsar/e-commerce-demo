@@ -25,9 +25,9 @@ export default function ProductDetails() {
   );
   const { addItem } = useCartStore();
 
-  const product: Product = { ...data.product, quantity: 1 };
-
   if (error) return <ErrorMessage message={error.message} />;
+
+  const product: Product = { ...data.product, quantity: 1 };
 
   const handleNext = () => {
     setCurrentImageIndex(
