@@ -40,12 +40,9 @@ function Home() {
 
   useSyncCartWithUser();
 
-  const handleSort = useCallback(
-    (direction: string) => {
-      setSortDirection(direction);
-    },
-    [products]
-  );
+  const handleSort = useCallback((direction: string) => {
+    setSortDirection(direction);
+  }, []);
 
   const handleApplyFilters = async (filters: {
     price_min?: number;
@@ -67,21 +64,25 @@ function Home() {
     setShowAll(true);
   };
 
-  const handleCategoryChange = async (category: Category) => {
-    setActiveCategory(category);
+  const handleCategoryChange = useCallback(
+    async (category: Category) => {
+      setActiveCategory(category);
 
-    if (category.id === "all") {
-      searchParams.delete("category");
-      setProducts(allProducts);
-    } else {
-      searchParams.set("category", category.id);
-      const { data } = await getbycategory({
-        variables: { id: Number(category.id) },
-      });
-      setProducts(data);
-    }
-    setSearchParams(searchParams);
-  };
+      if (category.id === "all") {
+        searchParams.delete("category");
+        setProducts(allProducts);
+      } else {
+        searchParams.set("category", category.id);
+        const { data } = await getbycategory({
+          variables: { id: Number(category.id) },
+        });
+        setProducts(data);
+      }
+
+      setSearchParams(searchParams);
+    },
+    [allProducts, getbycategory, setSearchParams, searchParams]
+  );
 
   const handleReset = () => {
     searchParams.delete("price_min");
@@ -105,9 +106,9 @@ function Home() {
     if (searchParams.size > 0) {
       const id = searchParams.get("category") || "";
 
-      handleCategoryChange({
-        id,
-      });
+      if (id !== activeCategory.id) {
+        handleCategoryChange({ id });
+      }
     }
   }, []);
 

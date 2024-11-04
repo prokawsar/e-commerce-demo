@@ -25,7 +25,7 @@ export default function ProductGrid({
     }
 
     return allProducts?.slice(0, 9);
-  }, [products, showAll]);
+  }, [products, showAll, sortDirection]);
 
   return (
     <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-4">
