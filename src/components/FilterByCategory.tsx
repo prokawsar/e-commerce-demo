@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_ALL_CATEGORY } from "@/graphql/queries";
-import Loader from "./Loader";
+import Loader from "@/components/Loader";
 import { Category } from "@/graphql/types";
 import CategoryButton from "@/components/CategoryButton";
 import { categoryAll } from "@/utils/tools";
@@ -10,7 +10,6 @@ import { useSearchParams } from "react-router-dom";
 
 type FilterByCategoryType = {
   filtering?: boolean;
-  activeCategory?: Category | null;
   onChangeCategory: (category: Category) => void;
 };
 
@@ -46,7 +45,7 @@ export const FilterByCategory = ({
   useEffect(() => {
     const id = searchParams.get("category") || "all";
     setActiveCategory({ id });
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className="relative flex flex-row gap-2 w-full px-2 min-h-6">
