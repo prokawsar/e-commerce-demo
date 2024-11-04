@@ -75,10 +75,10 @@ export default function ProductFilters({
   return (
     <div className="flex flex-col md:flex-row w-full gap-4 p-3 md:px-0">
       <div className="flex flex-col md:flex-row gap-3">
-        <div className="flex flex-row items-center px-3 gap-3">
-          <label>Sort by</label>
+        <div className="flex flex-row items-center w-full px-3 gap-3">
+          <label className="whitespace-nowrap mr-7 md:mr-0">Sort by</label>
           <select
-            className="px-2 border rounded py-1"
+            className="px-2 border rounded py-1 w-full md:w-fit"
             value={sortDirection}
             onChange={handleSortChange}
           >
@@ -88,14 +88,14 @@ export default function ProductFilters({
           </select>
         </div>
         <div className="flex flex-row items-center px-3 gap-3">
-          <label>Price range</label>
+          <label className="whitespace-nowrap">Price range</label>
           <input
             type="number"
             name="min"
             placeholder="min"
             value={priceRange.min}
             onChange={handlePriceRangeChange}
-            className="w-14 border p-1 rounded"
+            className="md:w-14 border p-1 rounded w-full"
             min={0}
           />
           <input
@@ -104,13 +104,13 @@ export default function ProductFilters({
             placeholder="max"
             value={priceRange.max}
             onChange={handlePriceRangeChange}
-            className="w-14 border p-1 rounded"
+            className="md:w-14 border p-1 rounded w-full"
             min={0}
           />
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-between">
         <button
           onClick={handleApplyFilters}
           disabled={isLoading}
