@@ -5,20 +5,23 @@ import { Category } from "@/graphql/types";
 import CategoryButton from "@/components/CategoryButton";
 import { categoryAll } from "@/utils/tools";
 import { Icon } from "@iconify/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type FilterByCategoryType = {
   filtering?: boolean;
-  activeCategory: Category | null;
+  activeCategory?: Category | null;
   onChangeCategory: (category: Category) => void;
 };
 
 export const FilterByCategory = ({
   filtering,
-  activeCategory,
   onChangeCategory,
 }: FilterByCategoryType) => {
   const { data: categories, loading } = useQuery(GET_ALL_CATEGORY);
+  const [searchParams] = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState(categoryAll);
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const scrollAmount = 400;
 
@@ -40,8 +43,13 @@ export const FilterByCategory = ({
     }
   };
 
+  useEffect(() => {
+    const id = searchParams.get("category") || "all";
+    setActiveCategory({ id });
+  }, []);
+
   return (
-    <div className="flex flex-row gap-2 w-full px-2 min-h-6">
+    <div className="relative flex flex-row gap-2 w-full px-2 min-h-6">
       {loading || filtering ? (
         <Loader width="20px" />
       ) : (
@@ -55,14 +63,17 @@ export const FilterByCategory = ({
 
           <div
             ref={containerRef}
-            className="flex flex-row overflow-auto h-full gap-2 px-1"
+            className="flex flex-row overflow-auto h-full gap-2 px-1 mr-0 md:mr-7"
             style={{ scrollbarWidth: "none" }}
           >
             <CategoryButton
               key={"all"}
               isActive={activeCategory?.id == "all"}
               category={categoryAll}
-              onClick={onChangeCategory}
+              onClick={() => {
+                setActiveCategory(categoryAll);
+                onChangeCategory(categoryAll);
+              }}
             />
 
             {categories?.categories?.map((category: Category) => {
@@ -71,14 +82,17 @@ export const FilterByCategory = ({
                   key={category.id}
                   isActive={activeCategory?.id == category.id}
                   category={category}
-                  onClick={onChangeCategory}
+                  onClick={() => {
+                    setActiveCategory(category);
+                    onChangeCategory(category);
+                  }}
                 />
               );
             })}
           </div>
 
           <button
-            className="hidden md:block hover:bg-gray-50"
+            className="hidden absolute right-2 h-full md:block hover:bg-gray-50"
             onClick={scrollRight}
           >
             <Icon icon="mdi:chevron-right" width="22px" />

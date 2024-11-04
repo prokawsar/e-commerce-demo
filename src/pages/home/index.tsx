@@ -12,7 +12,6 @@ import Loader from "@/components/Loader";
 import { useSearchParams } from "react-router-dom";
 import ProductGrid from "@/components/ProductGrid";
 import ProductFilters from "@/components/ProductFilters";
-import { categoryAll } from "@/utils/tools";
 import { toast } from "sonner";
 import { useSyncCartWithUser } from "@/hooks/useSyncCartWithUser";
 import ErrorMessage from "@/components/ErrorMessage";
@@ -30,7 +29,6 @@ function Home() {
   const [filterProducts] = useLazyQuery(FILTER_PRODUCTS);
 
   const [showAll, setShowAll] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(categoryAll);
   const [products, setProducts] = useState<{ products: Product[] }>({
     products: [],
   });
@@ -66,8 +64,6 @@ function Home() {
 
   const handleCategoryChange = useCallback(
     async (category: Category) => {
-      setActiveCategory(category);
-
       if (category.id === "all") {
         searchParams.delete("category");
         setProducts(allProducts);
@@ -81,7 +77,7 @@ function Home() {
 
       setSearchParams(searchParams);
     },
-    [allProducts, getbycategory, setSearchParams, searchParams]
+    [allProducts, searchParams]
   );
 
   const handleReset = () => {
@@ -97,20 +93,13 @@ function Home() {
   };
 
   useEffect(() => {
-    if (!loading) {
+    const id = searchParams.get("category") || "all";
+    if (id != "all") {
+      handleCategoryChange({ id });
+    } else if (!loading) {
       setProducts(allProducts);
     }
-  }, [allProducts, loading]);
-
-  useEffect(() => {
-    if (searchParams.size > 0) {
-      const id = searchParams.get("category") || "";
-
-      if (id !== activeCategory.id) {
-        handleCategoryChange({ id });
-      }
-    }
-  }, []);
+  }, [loading]);
 
   if (error) return <ErrorMessage message={error.message} />;
 
@@ -134,7 +123,6 @@ function Home() {
           />
           <FilterByCategory
             filtering={filtering}
-            activeCategory={activeCategory}
             onChangeCategory={handleCategoryChange}
           />
 
