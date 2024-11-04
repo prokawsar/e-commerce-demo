@@ -135,7 +135,7 @@ function Home() {
               products={{ products: products.products }}
             />
           )}
-          {!showAll && !loading && products.products?.length > 9 && (
+          {!filtering && !showAll && products.products?.length > 9 && (
             <button
               onClick={handleLoadMore}
               className="my-4 bg-yellow-400 py-2 px-4 rounded-full hover:bg-yellow-500"
