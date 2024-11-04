@@ -1,4 +1,9 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  from,
+  InMemoryCache,
+} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
@@ -31,6 +36,7 @@ const authLink = setContext((_, { headers }) => {
 
 export const graphQlClient = new ApolloClient({
   // uri: "https://api.escuelajs.co/graphql",
-  link: authLink.concat(httpLink),
+  // link: authLink.concat(httpLink),
+  link: from([httpLink, authLink]),
   cache: new InMemoryCache(),
 });

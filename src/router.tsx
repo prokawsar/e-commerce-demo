@@ -15,10 +15,12 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
+        errorElement: <Error />,
         index: true,
         element: <Home />,
       },
       {
+        errorElement: <Error />,
         path: "/product/:id",
         element: (
           <Suspense fallback={<Loader />}>

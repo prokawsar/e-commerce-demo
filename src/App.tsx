@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { RouterProvider } from "react-router-dom";
-import { graphQlClient } from "@/graphql/main";
+import { graphQlClient } from "@/graphql/client";
 import { router } from "./router";
 
 function App() {

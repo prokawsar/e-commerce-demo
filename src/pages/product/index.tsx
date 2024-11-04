@@ -8,6 +8,7 @@ import { useCartStore } from "@/store/index";
 import { GetProductByIdResponse, Product } from "@/graphql/types";
 import Image from "@/components/Image";
 import { useProtectedAction } from "@/hooks/useProtectedAction";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +19,7 @@ export default function ProductDetails() {
   const { error, data } = useSuspenseQuery<GetProductByIdResponse>(
     GET_PRODUCT_BY_ID,
     {
+      errorPolicy: "all",
       variables: { id },
     }
   );
@@ -25,7 +27,7 @@ export default function ProductDetails() {
 
   const product: Product = { ...data.product, quantity: 1 };
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <ErrorMessage message={error.message} />;
 
   const handleNext = () => {
     setCurrentImageIndex(

@@ -2,14 +2,16 @@ import { FormEvent, useEffect, useState } from "react";
 import { User, useAuthModalStore, useUserStore } from "../store";
 import Modal from "@/components/Modal";
 import { useMutation } from "@apollo/client";
-import { LOGIN } from "@/graphql/queries";
+import { LOGIN } from "@/graphql/mutations";
 import { Icon } from "@iconify/react";
 
 export const AuthModal = () => {
   const [signUpForm, setSignupForm] = useState(false);
   const { isOpen, pendingAction, closeModal } = useAuthModalStore();
   const { setUser } = useUserStore();
-  const [login, { error, loading, reset }] = useMutation(LOGIN);
+  const [login, { error, loading, reset }] = useMutation(LOGIN, {
+    errorPolicy: "none",
+  });
 
   const handleFormAction = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,12 +29,13 @@ export const AuthModal = () => {
     // Fake api doesn't support signup
     if (signUpForm) return;
 
-    const { data } = await login({ variables: { email, password } });
+    const { data, errors } = await login({ variables: { email, password } });
+    if (errors) return;
 
     const user: User = {
       id: Math.random().toString(36).substring(2, 9),
       email: email as string,
-      access_token: data.login.access_token,
+      access_token: data?.login.access_token,
     };
 
     setUser(user);

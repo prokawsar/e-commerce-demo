@@ -15,10 +15,15 @@ import ProductFilters from "@/components/ProductFilters";
 import { categoryAll } from "@/utils/tools";
 import { toast } from "sonner";
 import { useSyncCartWithUser } from "@/hooks/useSyncCartWithUser";
+import ErrorMessage from "@/components/ErrorMessage";
 
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { loading, data: allProducts } = useQuery(GET_ALL_PRODUCTS);
+  const {
+    loading,
+    data: allProducts,
+    error,
+  } = useQuery(GET_ALL_PRODUCTS, { errorPolicy: "all" });
   const [getbycategory, { loading: filtering }] = useLazyQuery(
     GET_PRODUCTS_BY_CATEGORY
   );
@@ -105,6 +110,8 @@ function Home() {
       });
     }
   }, []);
+
+  if (error) return <ErrorMessage message={error.message} />;
 
   return (
     <>
