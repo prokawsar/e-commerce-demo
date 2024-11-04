@@ -72,23 +72,6 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
   }
 `;
 
-export const GET_PRODUCTS_BY_PRICE_RANGE = gql`
-  query Products($min: Int!, $max: Int!) {
-    products(price_min: $min, price_max: $max) {
-      id
-      title
-      price
-      description
-      images
-      category {
-        id
-        name
-        image
-      }
-    }
-  }
-`;
-
 export const GET_ALL_CATEGORY = gql`
   query GetAllCategory {
     categories {
