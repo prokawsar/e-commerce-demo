@@ -25,7 +25,10 @@ export default function ProductDetails() {
   );
   const { addItem } = useCartStore();
 
-  if (error) return <ErrorMessage message={error.message} />;
+  if (error || !data) {
+    const message = !data ? "No product found" : error?.message;
+    return <ErrorMessage message={message || "Unknown error!"} />;
+  }
 
   const product: Product = { ...data.product, quantity: 1 };
 
